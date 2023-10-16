@@ -16,7 +16,8 @@ const buttonTransition = { duration: 1.2 }
 
 function App() {
 	// Möjliga värden på lastClicked: 'play', ' stop', 'next'
-	const [lastClicked, setLastClicked] = useState('play')
+	const PLAY = 'play', STOP = 'stop', NEXT = 'next'
+	const [lastClicked, setLastClicked] = useState(PLAY)
 
 	const buttonInitialSelected = {
 		...buttonInitial,
@@ -32,29 +33,40 @@ function App() {
 			<h1> Motion demo </h1>
 			<div className="media-controller">
 				<motion.button
-					initial={lastClicked === 'play' ? buttonInitialSelected : buttonInitial}
-					whileHover={lastClicked === 'play' ? buttonHoverSelected : buttonHover}
+					initial={lastClicked === PLAY ? buttonInitialSelected : buttonInitial}
+					whileHover={lastClicked === PLAY ? buttonHoverSelected : buttonHover}
 					transition={buttonTransition}
-					onClick={() => setLastClicked('play')}
+					onClick={() => setLastClicked(PLAY)}
 					> Play/pause
 				</motion.button>
 				<motion.button
-					initial={lastClicked === 'stop' ? buttonInitialSelected : buttonInitial}
-					whileHover={lastClicked === 'stop' ? buttonHoverSelected : buttonHover}
+					initial={lastClicked === STOP ? buttonInitialSelected : buttonInitial}
+					whileHover={lastClicked === STOP ? buttonHoverSelected : buttonHover}
 					transition={buttonTransition}
-					onClick={() => setLastClicked('stop')}
+					onClick={() => setLastClicked(STOP)}
 					> Stop
 				</motion.button>
 				<motion.button
-					initial={lastClicked === 'next' ? buttonInitialSelected : buttonInitial}
-					whileHover={lastClicked === 'next' ? buttonHoverSelected : buttonHover}
+					initial={lastClicked === NEXT ? buttonInitialSelected : buttonInitial}
+					whileHover={lastClicked === NEXT ? buttonHoverSelected : buttonHover}
 					transition={buttonTransition}
-					onClick={() => setLastClicked('next')}
+					onClick={() => setLastClicked(NEXT)}
 					> Next
 				</motion.button>
 			</div>
 		</main>
 	)
 }
+/* Vad kan förbättras i koden?
++ använda konstanter i stället för "magic strings" för 'play' osv.
++ om vi kan se elementen som en lista med buttons - använd array och map() för att skapa dem
+	{ buttonText, selectedString, 4 objekt för initial och hover }
++ en higher order component för motion.button, eftersom de har så mycket gemensamt
+const Higher = comp => (
+	<div>
+		{comp}
+	</div>
+)
+*/
 
 export default App
